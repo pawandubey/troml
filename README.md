@@ -6,8 +6,7 @@ Blazing fast [TOML](https://toml.io) parsing, with the power of Rust ⚡
 
 Troml utilizes [`rutie`](https://github.com/danielpclark/rutie) to parse TOML by delegating the actual parsing to Rust-land. The Rust code uses the canonical [`toml`](https://github.com/alexcrichton/toml-rs) package that's also used by Cargo.
 
-As of June 2022, Troml is approximately 30 _thousand_ times faster than the `toml` ruby gem at parsing the `test/data/spec.toml` file in this repository, as measured on a Thinkpad T470 with Intel Core i7-7500U @ 4x 3.5GHz and 12GB of RAM running KDE Neon 20.04.
-
+As of June 2022, Troml is approximately **30 thousand times** faster than the `toml` ruby gem at parsing the `test/data/spec.toml` file in this repository, as measured on a Thinkpad T470 with Intel Core i7-7500U @ 4x 3.5GHz and 12GB of RAM running KDE Neon 20.04 with Rust 1.57.0 and Ruby 3.1.2.
 
 ## Installation
 
