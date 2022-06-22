@@ -64,7 +64,8 @@ fn toml_to_toml_value(toml_value: Value, hash: &mut Hash) -> TomlValue {
         Value::Table(t) => {
             for (key, val) in t.into_iter() {
                 let rutie_key = RString::new_utf8(&key);
-                let rutie_val = toml_to_toml_value(val, hash);
+                let mut nested_hash = Hash::new();
+                let rutie_val = toml_to_toml_value(val, &mut nested_hash);
 
                 match rutie_val {
                     TomlValue::String(s) => hash.store(rutie_key, s),
@@ -92,4 +93,43 @@ pub extern "C" fn Init_troml() {
     Class::new("TromlExt", None).define(|klass| {
         klass.def_self("parse", troml_ext_parse_toml_str);
     });
+}
+
+#[cfg(test)]
+mod test {
+    use rutie::{Hash, Array, RString, Integer as Int, VM, Object};
+    use toml::Value;
+
+    #[test]
+    fn test_toml_parse() {
+        let toml = "
+simple='value'
+[nested]
+nested_key='nested_val'
+nested_array=['first_element', 2]
+";
+
+        VM::init();
+        let mut expected = Hash::new();
+        let mut nested_hash = Hash::new();
+        let mut nested_array = Array::new();
+
+        nested_array.push(RString::new_utf8("first_element"));
+        nested_array.push(Int::new(2));
+
+        nested_hash.store(RString::new_utf8("nested_key"), RString::new_utf8("nested_val"));
+        nested_hash.store(RString::new_utf8("nested_array"), nested_array);
+
+        expected.store(RString::new_utf8("simple"), RString::new_utf8("value"));
+        expected.store(RString::new_utf8("nested"), nested_hash);
+
+        let mut actual = Hash::new();
+
+        let toml_value = toml.parse::<Value>().unwrap();
+        println!("{}", toml_value);
+
+        let _ = crate::toml_to_toml_value(toml_value, &mut actual);
+
+        assert!(actual.equals(&expected), "expected {:?} to be equal to {:?}", actual, expected)
+    }
 }
