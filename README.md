@@ -1,6 +1,6 @@
 # Troml
 
-> ⚠ Alpha quality software. Consider it a side project and read the [gotchas](#gotchas).
+> ⚠ Alpha quality software. Consider it a side project and read the [gotchas](#current-gotchas).
 
 Blazing fast [TOML](https://toml.io) parsing, with the power of Rust ⚡
 
