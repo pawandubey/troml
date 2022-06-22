@@ -16,7 +16,8 @@ class TestTroml < Minitest::Test
   end
 
   def test_failure
-    skip # TODO: Fix error handling in the rust extension
-    Troml.parse("abc*123(")
+    assert_raises Troml::ExtParseError do
+      Troml.parse("abc*123(")
+    end
   end
 end

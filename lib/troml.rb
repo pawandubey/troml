@@ -9,6 +9,8 @@ module Troml
 
   class Error < StandardError; end
 
+  class ExtParseError < Error; end
+
   def self.parse(raw_toml)
     TromlExt.parse(raw_toml)
   end

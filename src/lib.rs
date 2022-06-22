@@ -1,4 +1,7 @@
-use rutie::{Class, Object, RString, VM, Hash, methods, class, Integer, Array, Float, Boolean, AnyObject};
+use rutie::{
+    class, methods, AnyException, AnyObject, Array, Boolean, Class, Exception, Float, Hash,
+    Integer, Object, RString, VM,
+};
 use toml::Value;
 
 class!(TromlExt);
@@ -6,11 +9,17 @@ class!(TromlExt);
 methods!(
     TromlExt,
     _rtself,
-
     fn troml_ext_parse_toml_str(input: RString) -> Hash {
         let raw_toml = input.map_err(|e| VM::raise_ex(e)).unwrap();
 
-        let parsed_toml = raw_toml.to_string().parse::<Value>().unwrap();
+        let parsed_toml = raw_toml
+            .to_string()
+            .parse::<Value>()
+            .map_err(|e| {
+                let msg = format!("{}", e);
+                VM::raise_ex(AnyException::new("Troml::ExtParseError", Some(&msg)))
+            })
+            .unwrap();
 
         let mut hash = Hash::new();
 
@@ -27,7 +36,7 @@ enum TomlValue {
     Boolean(Boolean),
     Array(Array),
     Table(Hash),
-    Datetime(AnyObject)
+    Datetime(AnyObject),
 }
 
 fn toml_to_toml_value(toml_value: Value, hash: &mut Hash) -> TomlValue {
@@ -47,11 +56,11 @@ fn toml_to_toml_value(toml_value: Value, hash: &mut Hash) -> TomlValue {
                     TomlValue::Boolean(b) => rutie_arr.push(b),
                     TomlValue::Array(a) => rutie_arr.push(a),
                     TomlValue::Table(t) => rutie_arr.push(t),
-                    TomlValue::Datetime(d) => rutie_arr.push(d)
+                    TomlValue::Datetime(d) => rutie_arr.push(d),
                 };
             }
             TomlValue::Array(rutie_arr)
-        },
+        }
         Value::Table(t) => {
             for (key, val) in t.into_iter() {
                 let rutie_key = RString::new_utf8(&key);
@@ -64,11 +73,11 @@ fn toml_to_toml_value(toml_value: Value, hash: &mut Hash) -> TomlValue {
                     TomlValue::Boolean(b) => hash.store(rutie_key, b),
                     TomlValue::Array(a) => hash.store(rutie_key, a),
                     TomlValue::Table(t) => hash.store(rutie_key, t),
-                    TomlValue::Datetime(d) => hash.store(rutie_key, d)
+                    TomlValue::Datetime(d) => hash.store(rutie_key, d),
                 };
             }
             TomlValue::Table(hash.to_owned())
-        },
+        }
         Value::Datetime(d) => {
             let args = [RString::new_utf8(&d.to_string()).to_any_object()];
             let ruby_datetime = unsafe { Class::from_existing("DateTime").send("iso8601", &args) };
