@@ -1,0 +1,27 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require "bundler/setup"
+require "bundler/inline"
+require "troml"
+
+gemfile do
+  source "https://rubygems.org"
+
+  gem "toml"
+  gem "benchmark-ips"
+end
+
+SPEC = File.read(File.join(__dir__, "..", "test", "data", "spec.toml"))
+
+Benchmark.ips do |x|
+  x.report("jm/toml") do |times|
+    TOML.load(SPEC)
+  end
+
+  x.report("troml") do |times|
+    Troml.parse(SPEC)
+  end
+
+  x.compare!
+end

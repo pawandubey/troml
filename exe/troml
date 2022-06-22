@@ -1,0 +1,31 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require "bundler/setup"
+require "troml"
+require "json"
+
+def tag(val)
+  case val
+  when String
+    {type: "string", value: val}
+  when Integer
+    {type: "integer", value: val}
+  when Float
+    {type: "float", value: val}
+  when TrueClass, FalseClass
+    {type: "bool", value: val}
+  when Array
+    val.map { |e| tag(e) }
+  when Hash
+    val.transform_values { |v| tag(v) }
+  end
+end
+
+raw_toml = ARGF.read
+
+parsed_toml = Troml.parse(raw_toml)
+
+tagged_hash = tag(parsed_toml)
+
+puts tagged_hash.to_json

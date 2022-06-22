@@ -2,6 +2,7 @@ PATH
   remote: .
   specs:
     troml (0.1.0)
+      rutie
 
 GEM
   remote: https://rubygems.org/
@@ -30,6 +31,7 @@ GEM
       rubocop (>= 1.7.0, < 2.0)
       rubocop-ast (>= 0.4.0)
     ruby-progressbar (1.11.0)
+    rutie (0.0.4)
     standard (1.12.1)
       rubocop (= 1.29.1)
       rubocop-performance (= 1.13.3)

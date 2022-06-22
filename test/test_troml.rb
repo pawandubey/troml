@@ -7,7 +7,16 @@ class TestTroml < Minitest::Test
     refute_nil ::Troml::VERSION
   end
 
-  def test_it_does_something_useful
-    assert false
+  def test_empty
+    assert_equal({}, Troml.parse(""))
+  end
+
+  def test_key_val
+    assert_equal({"foo" => "bar"}, Troml.parse("foo = 'bar'"))
+  end
+
+  def test_failure
+    skip # TODO: Fix error handling in the rust extension
+    Troml.parse("abc*123(")
   end
 end
