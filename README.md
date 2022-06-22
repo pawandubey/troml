@@ -2,7 +2,7 @@
 
 > ⚠ Alpha quality software. Consider it a side project and read the [gotchas](#gotchas).
 
-Blazing fast TOML parsing, with the power of Rust ⚡
+Blazing fast [TOML](https://toml.io) parsing, with the power of Rust ⚡
 
 Troml utilizes [`rutie`](https://github.com/danielpclark/rutie) to parse TOML by delegating the actual parsing to Rust-land. The Rust code uses the canonical [`toml`](https://github.com/alexcrichton/toml-rs) package that's also used by Cargo.
 
@@ -32,7 +32,7 @@ Troml.parse_file("path/to/file.toml")
 
 ## Current Gotchas
 - Troml only deserializes TOML documents, it does not generate them.
-- Troml uses `rutie`, which at this time has a bug where it leaks memory when it tries to `raise` in Ruby from Rust. Troml raises on parse failures currently. This means that if you are encountering a lot of parse failures, your program will end up consuming a lot of memory. I have a fix for this in mind and will implement it soon.
+- Troml uses `rutie`, which at this time has a bug where [it leaks memory when it tries to `raise` in Ruby from Rust](https://github.com/danielpclark/rutie/issues/159). Troml raises on parse failures currently. This means that if you are encountering a lot of parse failures, your program will end up consuming a lot of memory. I have a fix for this in mind and will implement it soon.
 - Troml packaging depends on the Cargo extension builder toolchain in Rubygems. As that is a recently-shipped feature, there might be bugs in the packaging of this gem.
 
 ## Performance
