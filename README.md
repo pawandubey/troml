@@ -4,7 +4,7 @@
 
 # Troml
 
-> ⚠ Alpha quality software. Consider it a side project and read the [gotchas](#current-gotchas).
+> ⚠ Alpha quality software. Consider it a side project and read the [gotchas](#current-gotchas) and [contribution guidelines](#contributing).
 
 Blazing fast [TOML](https://toml.io) parsing, with the power of Rust ⚡
 
@@ -67,7 +67,9 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/pawandubey/troml. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [code of conduct](https://github.com/pawandubey/troml/blob/master/CODE_OF_CONDUCT.md).
+Please note that this is a side project. That means that I can and will only dedicate time to it when I have the will to. I guarantee no SLOs for support, looking at issues or merging PRs. I will pay attention to security vulnerabilities where necessary. Please bear this in mind when evaluating this gem for production use.
+
+That being said, bug reports and pull requests are welcome on GitHub at https://github.com/pawandubey/troml. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [code of conduct](https://github.com/pawandubey/troml/blob/master/CODE_OF_CONDUCT.md).
 
 ## License
 
