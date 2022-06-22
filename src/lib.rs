@@ -1,6 +1,6 @@
 use rutie::{
     class, methods, AnyException, AnyObject, Array, Boolean, Class, Exception, Float, Hash,
-    Integer, Object, RString, VM,
+    Integer, Object, RString, VM, Module,
 };
 use toml::Value;
 
@@ -90,7 +90,7 @@ fn toml_to_toml_value(toml_value: Value, hash: &mut Hash) -> TomlValue {
 #[allow(non_snake_case)]
 #[no_mangle]
 pub extern "C" fn Init_troml() {
-    Class::new("TromlExt", None).define(|klass| {
+    Module::from_existing("Troml").get_nested_class("TromlExt").define(|klass| {
         klass.def_self("parse", troml_ext_parse_toml_str);
     });
 }
@@ -126,7 +126,6 @@ nested_array=['first_element', 2]
         let mut actual = Hash::new();
 
         let toml_value = toml.parse::<Value>().unwrap();
-        println!("{}", toml_value);
 
         let _ = crate::toml_to_toml_value(toml_value, &mut actual);
 
