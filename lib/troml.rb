@@ -15,7 +15,7 @@ module Troml
     TromlExt.parse(raw_toml)
   end
 
-  def self.read_file(file_path)
+  def self.parse_file(file_path)
     TromlExt.parse(File.read(file_path))
   end
 end
