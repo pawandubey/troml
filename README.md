@@ -1,10 +1,14 @@
+<!--
+# @markup markdown
+-->
+
 # Troml
 
 > ⚠ Alpha quality software. Consider it a side project and read the [gotchas](#current-gotchas).
 
 Blazing fast [TOML](https://toml.io) parsing, with the power of Rust ⚡
 
-Troml utilizes [`rutie`](https://github.com/danielpclark/rutie) to parse TOML by delegating the actual parsing to Rust-land. The Rust code uses the canonical [`toml`](https://github.com/alexcrichton/toml-rs) package that's also used by Cargo.
+Troml utilizes [rutie](https://github.com/danielpclark/rutie) to parse TOML by delegating the actual parsing to Rust-land. The Rust code uses the canonical [toml](https://github.com/alexcrichton/toml-rs) package that's also used by Cargo.
 
 As of June 2022, Troml is approximately **30 thousand times** faster than the `toml` ruby gem at parsing the `test/data/spec.toml` file in this repository, as measured on a Thinkpad T470 with Intel Core i7-7500U @ 4x 3.5GHz and 12GB of RAM running KDE Neon 20.04 with Rust 1.57.0 and Ruby 3.1.2.
 
@@ -31,7 +35,7 @@ Troml.parse_file("path/to/file.toml")
 
 ## Current Gotchas
 - Troml only deserializes TOML documents, it does not generate them.
-- Troml uses `rutie`, which at this time has a bug where [it leaks memory when it tries to `raise` in Ruby from Rust](https://github.com/danielpclark/rutie/issues/159). Troml raises on parse failures currently. This means that if you are encountering a lot of parse failures, your program will end up consuming a lot of memory. I have a fix for this in mind and will implement it soon.
+- Troml uses `rutie`, which at this time has a bug where [it leaks memory when it tries to raise in Ruby from Rust](https://github.com/danielpclark/rutie/issues/159). Troml raises on parse failures currently. This means that if you are encountering a lot of parse failures, your program will end up consuming a lot of memory. I have a fix for this in mind and will implement it soon.
 - Troml packaging depends on the Cargo extension builder toolchain in Rubygems. As that is a recently-shipped feature, there might be bugs in the packaging of this gem.
 
 ## Performance
