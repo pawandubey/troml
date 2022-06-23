@@ -32,4 +32,5 @@ Gem::Specification.new do |spec|
   spec.add_dependency "rutie"
 
   spec.add_development_dependency "yard"
+  spec.add_development_dependency "gem-release"
 end
