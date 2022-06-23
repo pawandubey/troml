@@ -11,4 +11,10 @@ end
 
 require "standard/rake"
 
+task :cargo_build do
+  system("cargo build --release")
+end
+
+task test: :cargo_build
+
 task default: %i[test standard]
