@@ -14,6 +14,8 @@ As of June 2022, Troml is approximately **30 thousand times** faster than the `t
 
 ## Installation
 
+> ⚠ Currently, the native extension is built locally, so having rustc and cargo is a prerequisite.
+
 Install the gem and add to the application's Gemfile by executing:
 
     $ bundle add troml
