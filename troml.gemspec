@@ -8,7 +8,7 @@ Gem::Specification.new do |spec|
   spec.authors = ["Pawan Dubey"]
   spec.email = ["git@pawandubey.com"]
 
-  spec.summary = "TOML parser"
+  spec.summary = "Blazing fast TOML parser, with the power of Rust."
   spec.description = spec.summary
   spec.homepage = "https://github.com/pawandubey/troml"
   spec.license = "MIT"
@@ -29,8 +29,8 @@ Gem::Specification.new do |spec|
   spec.executables = spec.files.grep(%r{\Aexe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
 
-  spec.add_dependency "rutie"
+  spec.add_dependency "rutie", "~> 0.0.4"
 
-  spec.add_development_dependency "yard"
-  spec.add_development_dependency "gem-release"
+  spec.add_development_dependency "yard", "~> 0.9.28"
+  spec.add_development_dependency "gem-release", "~> 2.2.2"
 end
