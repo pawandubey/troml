@@ -26,7 +26,7 @@ module Troml
   # However, while developing the gem, we want to be able to run the gem from its
   # source context, so we rely on Rutie's convention of loading the shared object
   # built by Cargo.
-  if File.exist?("troml.so")
+  if File.exist?(File.join(__dir__, "troml.so"))
     # We are running in "installed" mode.
     # Load the shared object built by rubygems.
     require "troml.so"
