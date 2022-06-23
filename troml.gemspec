@@ -29,6 +29,8 @@ Gem::Specification.new do |spec|
   spec.executables = spec.files.grep(%r{\Aexe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
 
+  spec.extensions = ["Cargo.toml"]
+
   spec.add_dependency "rutie", "~> 0.0.4"
 
   spec.add_development_dependency "yard", "~> 0.9.28"
